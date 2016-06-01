@@ -93,17 +93,18 @@ protected:
 		StandardTestEnumerateInstances<mi::Container_ImageInventory_Class_Provider>(m_keyNames, context, CALL_LOCATION(errMsg));
 
 		// Get images using command line
-		CPPUNIT_ASSERT(!system("docker images -q --no-trunc > /tmp/docker_image_ids.txt"));
+		CPPUNIT_ASSERT(!system("docker images -q -a --no-trunc > /tmp/docker_image_ids.txt"));
 
 		FILE* idFile = fopen("/tmp/docker_image_ids.txt", "r");
 		CPPUNIT_ASSERT(idFile);
 
-		wchar_t id[65];
+		wchar_t id[128];
 		set<wstring> allIds;
 
 		// Full image IDs (one per line)
 		while (fwscanf(idFile, L"%ls", id) != EOF)
 		{
+			printf("%S\n", id);
 			allIds.insert(wstring(id));
 		}
 

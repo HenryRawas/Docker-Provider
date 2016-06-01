@@ -253,6 +253,9 @@ public:
 
 				if (entry)
 				{
+        char* js = cJSON_Print(entry);
+        printf("%s\n", js);
+        free(js);
 					// New inventory entry
 					Container_ImageInventory_Class instance;
 					instance.Computer_value(hostname.c_str());
